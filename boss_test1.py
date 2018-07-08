@@ -72,17 +72,17 @@ def getConfig():
 # 插入数据库
 def save_in_db(lst):
 	for i in lst:
-		sql_str = "insert when (not exists (select jobid from boss_job_list where jobid = :jobid)) \
+		print(i)
+		sql_str = "insert when (not exists (select job_detail_url from boss_job_list \
+			where job_detail_url = :job_detail_url)) \
 			then into boss_job_list(uuid, page_num, keywords, jobid, \
 			job_detail_url) values(:uuid, :page_num, :keywords, :jobid, :job_detail_url) \
-			select :jobid from dual"
+			select :job_detail_url from dual"
 		cursor.execute(sql_str, (
-				str(i['jobid']), str(i['uuid']), str(i['page_num']), str(i['keywords']), 
-				str(i['jobid']), str(i['job_detail_url']), str(i['jobid'])
+				str(i['job_detail_url']), str(i['uuid']), str(i['page_num']), str(i['keywords']), 
+				str(i['jobid']), str(i['job_detail_url']), str(i['job_detail_url'])
 			) )
 	cursor.execute("commit")
-
-
 
 
 if __name__ == '__main__':
